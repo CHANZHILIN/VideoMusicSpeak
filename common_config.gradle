@@ -8,7 +8,7 @@ project.ext {
     versionName = "1.0.0"
     supportVersion = "28.0.0"
 
-    isModuleLoginDebug = false; //false：为module，true：为application
+    isModuleLoginDebug = true; //false：为module，true：为application
     isModuleMineDebug = false;
 
     setDefaultConfig = {
