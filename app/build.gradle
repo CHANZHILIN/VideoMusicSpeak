@@ -20,7 +20,6 @@ android {
         }
     }
 
-
 }
 
 
@@ -41,5 +40,5 @@ dependencies {
         implementation project(':module_mine')
     }
 
-
 }
+
