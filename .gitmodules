@@ -4,3 +4,6 @@
 [submodule "module_mine"]
 	path = module_mine
 	url = https://github.com/CHANZHILIN/module_mine.git
+[submodule "lib_base"]
+	path = lib_base
+	url = https://github.com/CHANZHILIN/lib_base.git
