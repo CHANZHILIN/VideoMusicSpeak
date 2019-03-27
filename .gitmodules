@@ -1,3 +1,6 @@
 [submodule "module_login"]
 	path = module_login
 	url = https://github.com/CHANZHILIN/module_login.git
+[submodule "module_mine"]
+	path = module_mine
+	url = https://github.com/CHANZHILIN/module_mine.git
