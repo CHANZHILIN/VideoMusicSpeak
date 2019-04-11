@@ -32,6 +32,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+
+    implementation "com.android.support:design:${project.ext.supportVersion}"
+
     implementation project(':lib_base')
     if (!project.ext.isModuleLoginDebug) {
         implementation project(':module_login')

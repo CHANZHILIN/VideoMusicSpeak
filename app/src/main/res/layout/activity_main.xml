@@ -1,26 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ARouter跳转"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="411dp" />
+    <chen.baselib.widget.NoScrollViewPager
+        android:id="@+id/scrollViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/line1" />
 
-</android.support.constraint.ConstraintLayout>
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/tabs_rg"
+        android:background="#e6e6e6" />
+
+    <RadioGroup
+        android:id="@+id/tabs_rg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/main_tab"
+            style="@style/TabRadioButton"
+            android:checked="true"
+            android:text="首" />
+
+        <RadioButton
+            android:id="@+id/video_tab"
+            style="@style/TabRadioButton"
+            android:text="视" />
+
+        <View style="@style/TabRadioButton" />
+
+        <RadioButton
+            android:id="@+id/voice_tab"
+            style="@style/TabRadioButton"
+            android:text="音" />
+
+        <RadioButton
+            android:id="@+id/mine_tab"
+            style="@style/TabRadioButton"
+            android:text="我" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+
+        <CheckBox
+            android:id="@+id/iv_try"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/selector_tab_fun"
+            android:button="@null" />
+
+    </FrameLayout>
+</RelativeLayout>

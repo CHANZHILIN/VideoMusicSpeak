@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@mipmap/select_tab_fun" android:state_checked="true" />
+    <item android:drawable="@mipmap/unselect_tab_fun" android:state_checked="false" />
+
+</selector>
