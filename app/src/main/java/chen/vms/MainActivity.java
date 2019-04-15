@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             @Override
             public void onClick(View v) {
                 ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(image, "rotation", 0f, 360f, 0f);
+                objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
                 objectAnimator.start();
             }
         });
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - mFirstTime > 2000) {
                 mFirstTime = System.currentTimeMillis();
-                Toast.makeText(MainActivity.this, "再点一次退出", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "再点一次退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
