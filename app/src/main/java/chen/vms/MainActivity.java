@@ -1,13 +1,20 @@
 package chen.vms;
 
 import android.animation.ObjectAnimator;
+import android.app.ActionBar;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.CheckBox;
@@ -30,19 +37,37 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private int[] rbIdList = {R.id.main_tab, R.id.video_tab, R.id.voice_tab, R.id.mine_tab};
     private long mFirstTime;
 
+    private boolean isOpen = false;
+    private boolean isLight = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences = getSharedPreferences("data",MODE_PRIVATE);
+         isLight = preferences.getBoolean("isLight",true);
+        if (isLight){
+            setTheme(R.style.AppLightTheme);
+        }else {
+            setTheme(R.style.AppDarkTheme);
+        }
         setContentView(R.layout.activity_main);
         mNoScrollViewPager = (NoScrollViewPager) findViewById(R.id.scrollViewPager);
         rgMainGroup = (RadioGroup) findViewById(R.id.tabs_rg);
         image = (CheckBox) findViewById(R.id.iv_try);
+        Toolbar toolbar = findViewById(R.id.tb_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(image, "rotation", 0f, 360f, 0f);
                 objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
                 objectAnimator.start();
+                isOpen = !isOpen;
+                SharedPreferences.Editor editor = getSharedPreferences("data",MODE_PRIVATE).edit();
+                editor.putBoolean("isLight",!isLight);
+                editor.commit();
+                reload();
             }
         });
 
@@ -63,6 +88,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                         .navigation();
             }
         });*/
+    }
+    protected void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 
     private void setFragments() {
@@ -132,4 +165,20 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         return super.onKeyDown(keyCode, event);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                //TODO search
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

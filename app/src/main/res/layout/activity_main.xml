@@ -6,11 +6,17 @@
     tools:context=".MainActivity">
 
 
+    <include
+        android:id="@+id/toobar"
+        layout="@layout/tool_bar" />
+
+
     <chen.baselib.widget.NoScrollViewPager
         android:id="@+id/scrollViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/line1" />
+        android:layout_above="@+id/line1"
+        android:layout_below="@+id/toobar" />
 
     <View
         android:id="@+id/line1"
