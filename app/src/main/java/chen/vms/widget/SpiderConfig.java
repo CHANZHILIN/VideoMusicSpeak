@@ -39,7 +39,7 @@ public class SpiderConfig {
     public static int DEFAULT_LINE_ALPHA = 150;
 
     // ~ 160
-    public static int DEFAULT_POINT_NUMBER = 30;
+    public static int DEFAULT_POINT_NUMBER = 60;
 
     public static int DEFAULT_POINT_ACCELERATION = 7;
 

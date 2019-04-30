@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import chen.vms.widget.SpiderWebView;
@@ -16,7 +17,7 @@ import chen.vms.widget.SpiderWebView;
 public class LauncherActivity extends AppCompatActivity implements Animation.AnimationListener {
 
     private static final int ANIM_TIME = 1000;
-    private ImageView mImageView;
+    private FrameLayout mFrameLayout;
     private SpiderWebView mSpiderWebView;
 
     @Override
@@ -26,13 +27,13 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_launcher);
-        mImageView = findViewById(R.id.image_bg);
+        mFrameLayout = findViewById(R.id.fl_main);
         mSpiderWebView = findViewById(R.id.spider);
         // 渐变展示启动屏
         AlphaAnimation aa = new AlphaAnimation(0.4f, 1.0f);
         aa.setDuration(ANIM_TIME * 4);
         aa.setAnimationListener(this);
-        mImageView.startAnimation(aa);
+        mFrameLayout.startAnimation(aa);
 
         ScaleAnimation sa = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         sa.setDuration(ANIM_TIME);
