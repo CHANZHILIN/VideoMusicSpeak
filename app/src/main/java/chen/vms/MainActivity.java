@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -16,6 +17,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private RadioGroup rgMainGroup;
 
     private CheckBox image;
-    private int[] rbIdList = {R.id.main_tab, R.id.video_tab, R.id.voice_tab, R.id.mine_tab};
+    private int[] rbIdList = {R.id.picture_tab, R.id.video_tab, R.id.voice_tab, R.id.mine_tab};
     private long mFirstTime;
 
     private boolean isOpen = false;
@@ -43,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         SharedPreferences preferences = getSharedPreferences("data",MODE_PRIVATE);
          isLight = preferences.getBoolean("isLight",true);
         if (isLight){
@@ -54,9 +63,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mNoScrollViewPager = (NoScrollViewPager) findViewById(R.id.scrollViewPager);
         rgMainGroup = (RadioGroup) findViewById(R.id.tabs_rg);
         image = (CheckBox) findViewById(R.id.iv_try);
-        Toolbar toolbar = findViewById(R.id.tb_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        Toolbar toolbar = findViewById(R.id.tb_toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

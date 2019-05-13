@@ -11,6 +11,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import chen.vms.widget.ClockView;
 import chen.vms.widget.SpiderWebView;
 
 
@@ -19,6 +20,7 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
     private static final int ANIM_TIME = 1000;
     private FrameLayout mFrameLayout;
     private SpiderWebView mSpiderWebView;
+    private ClockView mClockView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
         setContentView(R.layout.activity_launcher);
         mFrameLayout = findViewById(R.id.fl_main);
         mSpiderWebView = findViewById(R.id.spider);
+        mClockView = findViewById(R.id.clockview);
+        mClockView.setTime(ANIM_TIME/250);
+        mClockView.start();
         // 渐变展示启动屏
         AlphaAnimation aa = new AlphaAnimation(0.4f, 1.0f);
         aa.setDuration(ANIM_TIME * 4);
