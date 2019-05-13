@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import chen.baselib.widget.NoScrollViewPager;
 import chen.module_mine.MineFragment;
+import chen.module_picture.PictureFragment;
 
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     private void setFragments() {
-        mFragments.put(0, MineFragment.newInstance("main"));
+        mFragments.put(0, PictureFragment.newInstance("picture"));
         mFragments.put(1, MineFragment.newInstance("video"));
         mFragments.put(2, MineFragment.newInstance("voice"));
         mFragments.put(3, MineFragment.newInstance("mine"));

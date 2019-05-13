@@ -37,6 +37,9 @@ dependencies {
 
     implementation project(':lib_base')
     if (!project.ext.isModuleLoginDebug) {
+        implementation project(':module_picture')
+    }
+    if (!project.ext.isModuleLoginDebug) {
         implementation project(':module_login')
     }
     if (!project.ext.isModuleMineDebug) {
