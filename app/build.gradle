@@ -1,5 +1,6 @@
 apply from: "${rootProject.rootDir}/common_config.gradle"    //引用额外的配置
 apply plugin: 'com.android.application'
+println 'build.gradle的配置阶段'
 
 android {
     project.ext.setDefaultConfig android    //调用配置信息
@@ -45,5 +46,22 @@ dependencies {
     if (!project.ext.isModuleMineDebug) {
         implementation project(':module_mine')
     }
-
+// 闭包中执行的代码
+    println 'dependencies中执行的代码'
 }
+
+// 创建一个Task
+task task() {
+    println 'Task中的配置代码'
+    // 定义一个闭包
+    def a = {
+        println 'Task中的配置代码2'
+    }
+    // 执行闭包
+    a()
+    doFirst {
+        println '这段代码配置阶段不执行'
+    }
+}
+
+println '我是顺序执行的'
