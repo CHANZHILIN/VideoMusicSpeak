@@ -11,6 +11,8 @@ project.ext {
     isModuleLoginDebug = false; //false：为module，true：为application
     isModuleMineDebug = false;
     isModulePictureDebug =false;
+    isModuleVideoDebug =false;
+    isModuleVoiceDebug =false;
 
     setDefaultConfig = {
         extension ->    //闭包参数extension相当于android 对象
