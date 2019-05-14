@@ -1,16 +1,18 @@
 package chen.vms;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+
+import chen.baselib.Constants;
 import chen.vms.widget.ClockView;
 import chen.vms.widget.SpiderWebView;
 
@@ -32,7 +34,7 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
         mFrameLayout = findViewById(R.id.fl_main);
         mSpiderWebView = findViewById(R.id.spider);
         mClockView = findViewById(R.id.clockview);
-        mClockView.setTime(ANIM_TIME/250);
+        mClockView.setTime(ANIM_TIME / 250);
         mClockView.start();
         // 渐变展示启动屏
         AlphaAnimation aa = new AlphaAnimation(0.4f, 1.0f);
@@ -43,6 +45,14 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
         ScaleAnimation sa = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         sa.setDuration(ANIM_TIME);
         mSpiderWebView.startAnimation(sa);
+        mClockView.setOnSkipClick(new ClockView.OnSkipClickListener() {
+            @Override
+            public void onSkip() {
+                ARouter.getInstance().build(Constants.MAIN_ACTIVITY_PATH)
+                        .navigation();  //跳过
+                LauncherActivity.this.finish();
+            }
+        });
     }
 
     @Override
@@ -53,7 +63,7 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
     @Override
     public void onAnimationEnd(Animation animation) {
         Intent intent = new Intent();
-        intent.setClass(this,MainActivity.class);
+        intent.setClass(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -62,4 +72,5 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
     public void onAnimationRepeat(Animation animation) {
 
     }
+
 }

@@ -24,11 +24,14 @@ import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+
+import chen.baselib.Constants;
 import chen.baselib.widget.NoScrollViewPager;
 import chen.module_mine.MineFragment;
 import chen.module_picture.PictureFragment;
 
-
+@Route(path = Constants.MAIN_ACTIVITY_PATH)
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
 

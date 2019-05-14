@@ -9,18 +9,18 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import chen.vms.R;
+
 /**
- * Introduce :
+ * Introduce :  圆形倒计时
  * Created by CHEN_ on 2019/5/11.
  * PACKAGE_NAME : chen.vms.widget
  **/
 public class ClockView extends View {
-    private static final String TAG = "ClockView";
     // 默认一分钟
     private final int DEFAULT_TIME = 60;
     // 最大值 一小时
@@ -67,12 +67,12 @@ public class ClockView extends View {
 
     private void initPaint(Context context) {
         mCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mCirclePaint.setColor(WHITE);
+        mCirclePaint.setColor(BLACK);
         mCirclePaint.setStrokeWidth(10);
         mCirclePaint.setStyle(Paint.Style.STROKE);
 
         mArcPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mArcPaint.setColor(BLACK);
+        mArcPaint.setColor(WHITE);
         mArcPaint.setStyle(Paint.Style.STROKE);
         mArcPaint.setStrokeWidth(10);
 
@@ -142,7 +142,7 @@ public class ClockView extends View {
         canvas.drawColor(backgroundColor);
         canvas.drawCircle(centerX, centerY, radius, mCirclePaint);
 //        canvas.drawRect(mRectF,mArcPaint);
-        canvas.drawText(/*formatCountdownTime(counter)*/counter + "", centerX, centerY + 5, mTextPaint);
+        canvas.drawText(/*formatCountdownTime(counter)*//*counter + ""*/getContext().getString(R.string.skip), centerX, centerY + 5, mTextPaint);
         canvas.drawArc(mRectF, -90, degree, false, mArcPaint);
 
     }
@@ -189,7 +189,7 @@ public class ClockView extends View {
                 if (mAnimator != null && mAnimator.isRunning()) {
                     mAnimator.cancel();
                 }
-
+                if (mOnSkipClick != null) mOnSkipClick.onSkip();     //跳过，跳转mainActivity页面
                 break;
             case MotionEvent.ACTION_MOVE:
                 int offsetY = (int) (touchY - y);
@@ -247,5 +247,15 @@ public class ClockView extends View {
             sb.append(second);
         }
         return sb.toString();
+    }
+
+    private OnSkipClickListener mOnSkipClick;
+
+    public interface OnSkipClickListener {
+        void onSkip();
+    }
+
+    public void setOnSkipClick(OnSkipClickListener onSkipClick) {
+        mOnSkipClick = onSkipClick;
     }
 }
