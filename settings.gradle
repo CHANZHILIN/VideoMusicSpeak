@@ -1,4 +1,4 @@
-include ':app', ':lib_base', ':module_login', ':module_mine','module_picture'
+include ':app', ':lib_base', ':module_login', ':module_mine', ':module_video','module_picture'
 
 /*gradle.addBuildListener(new BuildListener() {
     void buildStarted(Gradle var1) {

@@ -10,3 +10,6 @@
 [submodule "module_picture"]
 	path = module_picture
 	url = https://github.com/CHANZHILIN/module_picture.git
+[submodule "module_video"]
+	path = module_video
+	url = https://github.com/CHANZHILIN/module_video.git
