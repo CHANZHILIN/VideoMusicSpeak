@@ -57,7 +57,6 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
 
     @Override
     public void onAnimationStart(Animation animation) {
-
     }
 
     @Override
