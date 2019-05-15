@@ -4,7 +4,7 @@
     package="chen.vms">
 
     <application
-        android:name="chen.baselib.BaseApplication"
+        android:name="chen.baselib.application.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

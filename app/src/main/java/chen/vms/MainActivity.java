@@ -178,20 +178,5 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         return super.onKeyDown(keyCode, event);
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                //TODO search
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 }

@@ -9,7 +9,7 @@
 
    <!-- <include
         android:id="@+id/toobar"
-        layout="@layout/tool_bar"
+        layout="@layout/title_bar"
         app:layout_behavior="@string/behavior_sample_title"/>-->
 
 
