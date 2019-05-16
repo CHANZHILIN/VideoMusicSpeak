@@ -1,7 +1,6 @@
 package chen.vms;
 
 import android.animation.ObjectAnimator;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -9,38 +8,54 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
+import butterknife.BindView;
 import chen.baselib.Constants;
+import chen.baselib.base.EmptyPresenterImpl;
+import chen.baselib.base.EmptyView;
+import chen.baselib.base.MVPActivity;
 import chen.baselib.widget.NoScrollViewPager;
 import chen.module_mine.MineFragment;
 import chen.module_picture.PictureFragment;
 
 @Route(path = Constants.MAIN_ACTIVITY_PATH)
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends MVPActivity<EmptyPresenterImpl> implements EmptyView, RadioGroup.OnCheckedChangeListener {
 
 
+    @BindView(R.id.scrollViewPager)
+    NoScrollViewPager scrollViewPager;
+    @BindView(R.id.line1)
+    View line1;
+    @BindView(R.id.picture_tab)
+    RadioButton pictureTab;
+    @BindView(R.id.video_tab)
+    RadioButton videoTab;
+    @BindView(R.id.voice_tab)
+    RadioButton voiceTab;
+    @BindView(R.id.mine_tab)
+    RadioButton mineTab;
+    @BindView(R.id.tabs_rg)
+    RadioGroup tabsRg;
+    @BindView(R.id.iv_try)
+    CheckBox ivTry;
     private SparseArray<Fragment> mFragments = new SparseArray<>();
-    private NoScrollViewPager mNoScrollViewPager;
+//    private NoScrollViewPager mNoScrollViewPager;
 
-    private RadioGroup rgMainGroup;
+//    private RadioGroup rgMainGroup;
 
-    private CheckBox image;
+    //    private CheckBox image;
     private int[] rbIdList = {R.id.picture_tab, R.id.video_tab, R.id.voice_tab, R.id.mine_tab};
     private long mFirstTime;
 
@@ -56,35 +71,25 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             //透明导航栏
 //            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-        SharedPreferences preferences = getSharedPreferences("data",MODE_PRIVATE);
-         isLight = preferences.getBoolean("isLight",true);
-        if (isLight){
+        SharedPreferences preferences = getSharedPreferences("data", MODE_PRIVATE);
+        isLight = preferences.getBoolean("isLight", true);
+        if (isLight) {
             setTheme(R.style.AppLightTheme);
-        }else {
+        } else {
             setTheme(R.style.AppDarkTheme);
         }
-        setContentView(R.layout.activity_main);
-        mNoScrollViewPager = (NoScrollViewPager) findViewById(R.id.scrollViewPager);
-        rgMainGroup = (RadioGroup) findViewById(R.id.tabs_rg);
-        image = (CheckBox) findViewById(R.id.iv_try);
+//        setContentView(getResId());
+//        setContentView(R.layout.activity_main);
+//        ButterKnife.bind(this);
+//        mNoScrollViewPager = (NoScrollViewPager) findViewById(R.id.scrollViewPager);
+//        rgMainGroup = (RadioGroup) findViewById(R.id.tabs_rg);
+//        image = (CheckBox) findViewById(R.id.iv_try);
 //        Toolbar toolbar = findViewById(R.id.tb_toolbar);
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(image, "rotation", 0f, 360f, 0f);
-                objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-                objectAnimator.start();
-                isOpen = !isOpen;
-                SharedPreferences.Editor editor = getSharedPreferences("data",MODE_PRIVATE).edit();
-                editor.putBoolean("isLight",!isLight);
-                editor.commit();
-                reload();
-            }
-        });
 
-        setFragments();
+
+//        setFragments();
 
 //        BottomNavigationView navigation = findViewById(R.id.navigationview);
 //        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -102,6 +107,39 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
         });*/
     }
+
+    @Override
+    protected int getResId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void init() {
+        setFragments();
+    }
+
+    @Override
+    protected void initListener() {
+        ivTry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(ivTry, "rotation", 0f, 360f, 0f);
+                objectAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+                objectAnimator.start();
+                isOpen = !isOpen;
+                SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
+                editor.putBoolean("isLight", !isLight);
+                editor.commit();
+                reload();
+            }
+        });
+    }
+
+    @Override
+    protected EmptyPresenterImpl createPresenter() {
+        return new EmptyPresenterImpl(this);
+    }
+
     protected void reload() {
         Intent intent = getIntent();
         overridePendingTransition(0, 0);
@@ -128,10 +166,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
         };
 
-        rgMainGroup.setOnCheckedChangeListener(this);
+        tabsRg.setOnCheckedChangeListener(this);
 
-        mNoScrollViewPager.setAdapter(adapter);
-        mNoScrollViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        scrollViewPager.setAdapter(adapter);
+        scrollViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -142,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 int i = 0;
                 for (int id : rbIdList) {
                     if (position == i) {
-                        rgMainGroup.check(id);
+                        tabsRg.check(id);
                     }
                     i++;
                 }
@@ -153,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
             }
         });
-        mNoScrollViewPager.setOffscreenPageLimit(3);
+        scrollViewPager.setOffscreenPageLimit(3);
     }
 
     @Override
@@ -161,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         int i = 0;
         for (int id : rbIdList) {
             if (id == checkedId) {
-                mNoScrollViewPager.setCurrentItem(i, true);
+                scrollViewPager.setCurrentItem(i, true);
             }
             i++;
         }

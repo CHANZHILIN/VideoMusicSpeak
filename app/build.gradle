@@ -20,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    // Butterknife requires Java 8.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
 }
 
@@ -28,17 +33,25 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:${project.ext.supportVersion}"
+    implementation "com.android.support:design:${project.ext.supportVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
 
-    implementation "com.android.support:design:${project.ext.supportVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${project.ext.butterKnifeVersion}"
 
     implementation project(':lib_base')
-    if (!project.ext.isModuleLoginDebug) {
+
+    if (!project.ext.isModulePictureDebug) {
         implementation project(':module_picture')
+    }
+    if (!project.ext.isModuleVideoDebug) {
+        implementation project(':module_video')
+    }
+    if (!project.ext.isModuleVoiceDebug) {
+        implementation project(':module_voice')
     }
     if (!project.ext.isModuleLoginDebug) {
         implementation project(':module_login')

@@ -1,6 +1,5 @@
 package chen.vms;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
@@ -61,10 +60,9 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        ARouter.getInstance().build(Constants.MAIN_ACTIVITY_PATH)
+                .navigation();  //跳过
+        LauncherActivity.this.finish();
     }
 
     @Override
