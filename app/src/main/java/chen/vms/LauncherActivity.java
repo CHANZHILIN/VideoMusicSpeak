@@ -19,9 +19,6 @@ import chen.vms.widget.SpiderWebView;
 public class LauncherActivity extends AppCompatActivity implements Animation.AnimationListener {
 
     private static final int ANIM_TIME = 1000;
-    private FrameLayout mFrameLayout;
-    private SpiderWebView mSpiderWebView;
-    private ClockView mClockView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +27,21 @@ public class LauncherActivity extends AppCompatActivity implements Animation.Ani
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_launcher);
-        mFrameLayout = findViewById(R.id.fl_main);
-        mSpiderWebView = findViewById(R.id.spider);
-        mClockView = findViewById(R.id.clockview);
-        mClockView.setTime(ANIM_TIME / 250);
-        mClockView.start();
+        FrameLayout frameLayout = findViewById(R.id.fl_main);
+        SpiderWebView spiderWebView = findViewById(R.id.spider);
+        ClockView clockView = findViewById(R.id.clockview);
+        clockView.setTime(ANIM_TIME / 250);
+        clockView.start();
         // 渐变展示启动屏
-        AlphaAnimation aa = new AlphaAnimation(0.4f, 1.0f);
+        AlphaAnimation aa = new AlphaAnimation(0.5f, 1.0f);
         aa.setDuration(ANIM_TIME * 4);
         aa.setAnimationListener(this);
-        mFrameLayout.startAnimation(aa);
+        frameLayout.startAnimation(aa);
 
         ScaleAnimation sa = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         sa.setDuration(ANIM_TIME);
-        mSpiderWebView.startAnimation(sa);
-        mClockView.setOnSkipClick(new ClockView.OnSkipClickListener() {
+        spiderWebView.startAnimation(sa);
+        clockView.setOnSkipClick(new ClockView.OnSkipClickListener() {
             @Override
             public void onSkip() {
                 ARouter.getInstance().build(Constants.MAIN_ACTIVITY_PATH)

@@ -71,6 +71,7 @@ public class MainActivity extends MVPActivity<EmptyPresenterImpl> implements Emp
             //透明导航栏
 //            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
+
         SharedPreferences preferences = getSharedPreferences("data", MODE_PRIVATE);
         isLight = preferences.getBoolean("isLight", true);
         if (isLight) {
@@ -78,6 +79,7 @@ public class MainActivity extends MVPActivity<EmptyPresenterImpl> implements Emp
         } else {
             setTheme(R.style.AppDarkTheme);
         }
+
 //        setContentView(getResId());
 //        setContentView(R.layout.activity_main);
 //        ButterKnife.bind(this);
@@ -216,5 +218,6 @@ public class MainActivity extends MVPActivity<EmptyPresenterImpl> implements Emp
         }
         return super.onKeyDown(keyCode, event);
     }
+
 
 }

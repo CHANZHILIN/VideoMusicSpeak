@@ -183,7 +183,6 @@ public class ClockView extends View {
                 touchX = event.getX();
                 touchY = event.getY();
 
-
                 lastCounter = counter;
 
                 if (mAnimator != null && mAnimator.isRunning()) {

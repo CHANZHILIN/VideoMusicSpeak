@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="chen.vms">
+    package="chen.vms"
+    android:networkSecurityConfig="@xml/network_security_config">
+    <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="chen.baselib.application.BaseApplication"
